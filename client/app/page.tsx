@@ -25,7 +25,7 @@ const Home = async () => {
       title,
       description,
     };
-    const res = await fetch("http://localhost:8000/todos", {
+    await fetch("http://localhost:8000/todos", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
