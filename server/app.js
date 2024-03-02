@@ -19,8 +19,27 @@ const Todos = mongoose.model("todos", TodosSchema);
 app.get("/", (req, res) => {
   res.send("Heom page");
 });
-app.get("/todos", (req, res) => {
-  res.send({ message: "connected", data: [] });
+app.get("/todos", async (req, res) => {
+  try {
+    const data = await Todos.find();
+    return res.send(data);
+  } catch (err) {
+    res.send({ message: "Server error" });
+  }
+});
+
+app.post("/todos", async (req, res) => {
+  const { title, description } = req.body;
+  try {
+    const data = new Todos({
+      title,
+      description,
+    });
+    await data.save();
+    res.send({ message: "Data saved", payload: data });
+  } catch (err) {
+    res.send({ message: "Something went wrong" });
+  }
 });
 
 app.listen(PORT, () => console.log("server is running"));
