@@ -19,7 +19,7 @@ const Todos = mongoose.model("todos", TodosSchema);
 app.get("/", (req, res) => {
   res.send("Heom page");
 });
-app.get("/todos", async (req, res) => {
+app.get("/todos", async (_, res) => {
   try {
     const data = await Todos.find();
     return res.send(data);
